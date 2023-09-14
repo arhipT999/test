@@ -1,8 +1,7 @@
-import pygame#pyinstaller --onefile super_test.py
+import pygame   
 import random
 import time
 from ctypes import windll
-
 WIDTH = 500
 HEIGHT = 300
 FPS = 60
@@ -33,14 +32,61 @@ def pon():
     Your_score('Я так и знал', 150, 100, WHITE)
     pygame.display.flip()
     time.sleep(2)
+def pon1():
+    screen.fill(BLACK)
+    Your_score('Э... я это не предусмотрел', 0, 100, WHITE)
+    pygame.display.flip()
+    time.sleep(2)
+    screen.fill(BLACK)
+    Your_score('Это типо пасхалка...', 50, 100, WHITE)
+    pygame.display.flip()
+    time.sleep(2)
+    screen.fill(BLACK)
+    Your_score('Error 0xc000007b', 100, 100, WHITE)
+    pygame.display.flip()
+    time.sleep(2)
+    screen.fill(BLACK)
+    pygame.display.flip()
+    run1 = True
+    WIDTH = 200
+    HEIGHT = 200
+    dis = pygame.display.set_mode((WIDTH, HEIGHT))
+    screen.fill(BLACK)
+    pygame.display.flip()
+    window_pos = [500, 200]
+    moveWin(*window_pos)
+    while run1:
+        clock.tick(FPS)
+        a = pygame.mouse.get_pos()
+        x, y = a[0], a[1]
+        #print(x, y)
+        for event in pygame.event.get():  
+            if event.type == pygame.QUIT:
+                run1 = False
+            if x >= 69 and x <= 139 and y >=128 and y <= 158 and event.type == pygame.MOUSEBUTTONUP:
+                run1 = False
+        pygame.draw.rect(dis, WHITE, [70, 130, 70, 30])
+        Your_score('Ок', 80, 127, BLACK)
+        Your_score('Error', 60, 20, WHITE)
+        pygame.display.flip()
+
 while run:
     clock.tick(FPS)
     a = pygame.mouse.get_pos()
     x, y = a[0], a[1]
+    err = 0
     prav = 0
     #print(x,y)
     for event in pygame.event.get():  
         if event.type == pygame.QUIT:
+            screen.fill(BLACK)
+            Your_score('Ты не выйдешь отсюда', 20, 0, WHITE)
+            pygame.display.flip()
+            time.sleep(2)
+            screen.fill(BLACK)
+            Your_score('Хотя...', 200, 0, WHITE)
+            pygame.display.flip()
+            time.sleep(2)
             run = False
         if x >= 99 and x <= 199 and y >=150 and y <= 198:
             n, m = random.randint(100, 600), random.randint(0, 400)
@@ -48,6 +94,12 @@ while run:
             moveWin(*window_pos)
         if x >= 299 and x <= 399 and y >=149 and y <= 198 and event.type == pygame.MOUSEBUTTONUP:
             prav = 1
+        if x >= 99 and x <= 199 and y >=150 and y <= 198 and event.type == pygame.MOUSEBUTTONUP:
+            err = 1
+        if err == 1:
+            err = 0
+            pon1()
+            run = False
         if prav == 1:
             prav = 0
             pon()
